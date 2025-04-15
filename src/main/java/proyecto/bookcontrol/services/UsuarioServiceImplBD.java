@@ -1,12 +1,10 @@
 package proyecto.bookcontrol.services;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import proyecto.bookcontrol.domain.Rol;
 import proyecto.bookcontrol.domain.Usuario;
 import proyecto.bookcontrol.exceptions.NotFoundException;
@@ -15,7 +13,6 @@ import proyecto.bookcontrol.repositories.UsuarioRepository;
 
 @Service
 public class UsuarioServiceImplBD implements UsuarioService {
-
     @Autowired
     UsuarioRepository UsuarioRepository;
     @Autowired
@@ -38,10 +35,12 @@ public class UsuarioServiceImplBD implements UsuarioService {
         return UsuarioRepository.save(usuario);
     }
 
-    @Override
+    public List<Usuario> obtenerTodos() {
+        return UsuarioRepository.findAll();
+    }
+
     public Usuario obtenerPorId(Long id) throws NotFoundException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerPorId'");
+        return UsuarioRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -50,18 +49,7 @@ public class UsuarioServiceImplBD implements UsuarioService {
         throw new UnsupportedOperationException("Unimplemented method 'editar'");
     }
 
-    @Override
     public void borrar(Long id) throws NotFoundException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'borrar'");
+        UsuarioRepository.deleteById(id);
     }
-
-    @Override
-    public List<Usuario> obtenerTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerTodos'");
-    }
-
-  
-
 }
