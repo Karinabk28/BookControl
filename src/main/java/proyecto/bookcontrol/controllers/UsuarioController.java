@@ -7,8 +7,6 @@ import proyecto.bookcontrol.exceptions.NotFoundException;
 import proyecto.bookcontrol.repositories.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/usuarios")
+@RequestMapping("/admin/usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -32,6 +30,7 @@ public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    /*Mirar lo de la paginacion */
     @GetMapping({ "/", "" })
     public String showUsuarios(@RequestParam(required = false) Integer op,
             Model model) {
@@ -50,17 +49,17 @@ public class UsuarioController {
     @GetMapping("/nuevo")
     public String addUsuario(Model model) {
         model.addAttribute("usuarioForm", new Usuario());
-        return "usuario/newUsuarioView";
+        return "/admin/usuario/newUsuarioView";
     }
 
     @PostMapping("/nuevo/submit")
     public String addUsuarioSubmit(@Valid Usuario usuarioForm,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "redirect:/usuarios?op=2";
+            return "redirect:/admin/usuarios?op=2";
         }
         usuarioService.anadir(usuarioForm);
-        return "redirect:/usuarios?op=1";
+        return "redirect:/admin/usuarios?op=1";
     }
 
     @GetMapping("/editar/{id}")
@@ -69,24 +68,24 @@ public class UsuarioController {
         try {
             usuarioForm = usuarioService.obtenerPorId(id);
         } catch (Exception e) {
-            return "redirect:/usuarios?op=3";
+            return "redirect:/admin/usuarios?op=3";
         }
         model.addAttribute("usuarioForm", usuarioForm);
-        return "usuario/editUsuarioView";
+        return "/admin/usuario/editUsuarioView";
     }
 
     @PostMapping("/editar/submit")
     public String editusuarioSubmit(@Valid Usuario usuarioForm,
             BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "redirect:/usuarios?op=4";
+            return "redirect:/admin/usuarios?op=4";
         }
         try {
             usuarioService.editar(usuarioForm);
         } catch (NotFoundException e) {
-            return "redirect:/usuarios?op=3";
+            return "redirect:/admin/usuarios?op=3";
         }
-        return "redirect:/usuarios?op=5";
+        return "redirect:/admin/usuarios?op=5";
     }
 
     @GetMapping("/borrar/{id}")
@@ -94,9 +93,9 @@ public class UsuarioController {
         try {
             usuarioService.borrar(id);
         } catch (NotFoundException e) {
-            return "redirect:/usuarios?op=6";
+            return "redirect:/admin/usuarios?op=6";
         }
-        return "redirect:/usuarios?op=6";
+        return "redirect:/admin/usuarios?op=6";
     }
 
 }
