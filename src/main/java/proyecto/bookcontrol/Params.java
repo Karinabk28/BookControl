@@ -10,4 +10,14 @@ public class Params {
         "Usuario editado correctamente",
         "Usuario eliminado correctamente"
     };
+
+    public static final String [] LIBRO = {
+        "Libro añadido correctamente",
+        "Error al añadir libro",
+        "Error de validación",
+        "Libro no encontrado",
+        "Error de validación al editar",
+        "Libro editado correctamente",
+        "Libro eliminado correctamente"
+    };
 }
