@@ -36,7 +36,7 @@ public class UsuarioServiceImplBD implements UsuarioService {
 
     public Usuario registrarUsuario(Usuario usuario) {
         usuario.setClave(passwordEncoder.encode(usuario.getClave()));
-        usuario.setRol(Rol.ADMIN); // Rol por defecto
+        usuario.setRol(Rol.USUARIO); 
         return UsuarioRepository.save(usuario);
     }
 
@@ -64,8 +64,7 @@ public class UsuarioServiceImplBD implements UsuarioService {
     }
 
     public Page<Usuario> obtenerTodosPaginado(Pageable pageable) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerTodosPaginado'");
+        return UsuarioRepository.findAll(pageable);
     }
 
     

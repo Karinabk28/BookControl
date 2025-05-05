@@ -1,3 +1,4 @@
+
 package proyecto.bookcontrol.controllers;
 
 import proyecto.bookcontrol.domain.Usuario;
@@ -7,6 +8,8 @@ import proyecto.bookcontrol.exceptions.NotFoundException;
 import proyecto.bookcontrol.repositories.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,20 +33,27 @@ public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-    /*Mirar lo de la paginacion */
-    @GetMapping({ "/", "" })
+       @GetMapping({ "/", "" })
     public String showUsuarios(@RequestParam(required = false) Integer op,
+            @RequestParam(defaultValue = "0") int page,
             Model model) {
+
         if (op != null) {
             model.addAttribute("msg", Params.USER[op]);
         }
-        model.addAttribute("listaUsuario", usuarioService.obtenerTodos());
+
+        Page<Usuario> paginaUsuarios = usuarioService.obtenerTodosPaginado(PageRequest.of(page, 5));
+        model.addAttribute("listaUsuario", paginaUsuarios.getContent());
+        model.addAttribute("totalPaginas", paginaUsuarios.getTotalPages());
+        model.addAttribute("paginaActual", page);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             Usuario usuario = usuarioRepository.findByNombre(authentication.getName());
             model.addAttribute("idUsuario", usuario.getId());
         }
-        return "usuario/usuarioView";
+
+        return "/admin/usuario/usuarioView";
     }
 
     @GetMapping("/nuevo")

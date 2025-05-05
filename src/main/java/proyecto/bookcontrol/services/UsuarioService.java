@@ -15,6 +15,5 @@ public interface UsuarioService {
     Usuario editar(Usuario usuario) throws NotFoundException;
     void borrar(Long id) throws NotFoundException;
     List<Usuario> obtenerTodos();
-    /*Ya lo implementare para el paginado (esto es para una tabla enorme)*/
     Page<Usuario> obtenerTodosPaginado(Pageable pageable);
 }
