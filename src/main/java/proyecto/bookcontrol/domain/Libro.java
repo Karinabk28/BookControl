@@ -1,5 +1,6 @@
 package proyecto.bookcontrol.domain;
 
+import java.util.List;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
@@ -36,6 +37,9 @@ public class Libro {
     @Column(name = "enlace_lectura")
     private String enlaceLectura; //Esto lo voy a usar para coger de una API y poder leer el libro
 
+    
+    @OneToMany(mappedBy = "libro", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
 
     public Libro() {}
