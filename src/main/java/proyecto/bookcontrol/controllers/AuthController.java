@@ -45,9 +45,9 @@ public class AuthController {
         }
         return "redirect:/login?error=rol_desconocido";
     }
-    @GetMapping("/user/home")
+    @GetMapping("/home")
     public String userHome() {
-        return "user/home";
+        return "public/home";
     }
     
     @GetMapping("/admin/home")
