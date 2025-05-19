@@ -1,22 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
   <meta charset="UTF-8">
   <title>Mi Página</title>
   <link rel="stylesheet" th:href="@{/css/styles.css}">
   <link rel="stylesheet" href="/css/styles.css">
+
 </head>
+
 <body>
   <header class="cabecera" th:fragment="cabecera">
     <div class="cabecera-contenedor">
-      <img src="/img/logo.png" alt="Logo de la empresa" class="logo-empresa" />
+      <a th:href="@{/home}" sec:authorize="hasRole('USUARIO')"> <img src="/img/log.png" alt="Logo de la empresa"
+          class="logo-empresa" /></a>
+      <a th:href="@{/admin/libros}" sec:authorize="hasRole('ADMIN')"> <img src="/img/log.png" alt="Logo de la empresa"
+          class="logo-empresa" /></a>
       <nav class="cabecera-enlaces">
         <!--OPCIONES PARA EL ADMINISTRADOR-->
-        <a th:href="@{/admin/home}" sec:authorize="hasRole('ADMIN')">Inicio</a>
+     
+        <a th:href="@{/admin/libros}" sec:authorize="hasRole('ADMIN')">Libros</a>
+        <a th:href="@{/admin/listas}" sec:authorize="hasRole('ADMIN')">Listas</a>
         <a th:href="@{/admin/usuarios}" sec:authorize="hasRole('ADMIN')">Usuarios</a>
-        <form th:action="@{/logout}" method="post" class="formulario-cerrar-sesion">
-          <button type="submit" sec:authorize="isAuthenticated()">Cerrar Sesión</button>
-        </form>
+        <a th:href="@{/admin/reviews}" sec:authorize="hasRole('ADMIN')">Reseñas</a>
+        <!--OPCIONES PARA UN USUARIO-->
+        <a th:href="@{/home}" sec:authorize="hasRole('USUARIO')">Inicio</a>
+        <a th:href="@{/libros}" sec:authorize="hasRole('USUARIO')">Explorar</a>
+        <a th:href="@{/listas}" sec:authorize="hasRole('USUARIO')">Mis Listas</a>
+        <a th:href="@{/perfil}" sec:authorize="hasRole('USUARIO')">Mi Perfil</a>
+
+
       </nav>
     </div>
   </header>
