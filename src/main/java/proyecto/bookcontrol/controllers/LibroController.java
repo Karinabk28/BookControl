@@ -1,0 +1,84 @@
+package proyecto.bookcontrol.controllers;
+
+import proyecto.bookcontrol.domain.Libro;
+import proyecto.bookcontrol.exceptions.NotFoundException;
+import proyecto.bookcontrol.services.LibroService;
+import proyecto.bookcontrol.Params;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/admin/libros")
+public class LibroController {
+
+    @Autowired
+    private LibroService libroService;
+
+    @GetMapping({ "/", "" })
+    public String showLibros(@RequestParam(required = false) Integer op, Model model) {
+        if (op != null) {
+            model.addAttribute("msg", Params.LIBRO[op]);
+        }
+        model.addAttribute("listaLibro", libroService.obtenerTodos());
+        return "admin/libro/libroView";
+    }
+
+    @GetMapping("/nuevo")
+    public String addLibro(Model model) {
+        model.addAttribute("libroForm", new Libro());
+        return "admin/libro/newLibroView";
+    }
+
+    @PostMapping("/nuevo/submit")
+    public String addLibroSubmit(@Valid Libro libroForm,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/admin/libros?op=2";
+        }
+        libroService.anadir(libroForm);
+        return "redirect:/admin/libros?op=1";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editLibro(@PathVariable Long id, Model model) {
+        Libro libroForm;
+        try {
+            libroForm = libroService.obtenerPorId(id);
+        } catch (Exception e) {
+            return "redirect:/admin/libros?op=3";
+        }
+        model.addAttribute("libroForm", libroForm);
+        return "admin/libro/editLibroView";
+    }
+
+    @PostMapping("/editar/submit")
+    public String editLibroSubmit(@Valid Libro libroForm,
+            BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "redirect:/admin/libros?op=4";
+        }
+        try {
+            libroService.editar(libroForm);
+        } catch (NotFoundException e) {
+            return "redirect:/admin/libros?op=3";
+        }
+        return "redirect:/admin/libros?op=5";
+    }
+
+    @GetMapping("/borrar/{id}")
+    public String deleteLibro(@PathVariable Long id, Model model) {
+        try {
+            libroService.borrar(id);
+        } catch (NotFoundException e) {
+            return "redirect:/admin/libros?op=6";
+        }
+        return "redirect:/admin/libros?op=6";
+    }
+
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Usuario</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+    <h1>Añadir Nuevo Usuario</h1>
+
+    <form th:action="@{/admin/usuarios/nuevo/submit}" th:object="${usuarioForm}" method="post">
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required>
+        <br>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required>
+        <br>
+
+        <label>Contraseña:</label>
+        <input type="password" th:field="*{clave}" required>
+        <br>
+
+        <label>Rol:</label>
+        <select th:field="*{rol}">
+            <option value="ADMIN">Admin</option>
+            <option value="USUARIO">Usuario</option>
+        </select>
+        <br>
+
+        <button type="submit">Guardar</button>
+    </form>
+
+    <a href="/usuarios">Volver</a>
+</body>
+</html>

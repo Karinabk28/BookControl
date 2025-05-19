@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Mi Página</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="cabecera" th:fragment="cabecera">
+    <div class="cabecera-contenedor">
+      <img src="/img/logo.png" alt="Logo de la empresa" class="logo-empresa" />
+      <nav class="cabecera-enlaces">
+        <!--OPCIONES PARA EL ADMINISTRADOR-->
+        <a th:href="@{/admin/home}" sec:authorize="hasRole('ADMIN')">Inicio</a>
+        <a th:href="@{/admin/usuarios}" sec:authorize="hasRole('ADMIN')">Usuarios</a>
+        <form th:action="@{/logout}" method="post" class="formulario-cerrar-sesion">
+          <button type="submit" sec:authorize="isAuthenticated()">Cerrar Sesión</button>
+        </form>
+      </nav>
+    </div>
+  </header>
+</body>
+
+</html>
