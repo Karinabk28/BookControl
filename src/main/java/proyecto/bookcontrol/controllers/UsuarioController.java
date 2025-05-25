@@ -33,7 +33,7 @@ public class UsuarioController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
-       @GetMapping({ "/", "" })
+    @GetMapping({ "/", "" })
     public String showUsuarios(@RequestParam(required = false) Integer op,
             @RequestParam(defaultValue = "0") int page,
             Model model) {
@@ -57,20 +57,26 @@ public class UsuarioController {
     }
 
     @GetMapping("/nuevo")
-    public String addUsuario(Model model) {
+    public String addUsuario(Model model, Integer op) {
         model.addAttribute("usuarioForm", new Usuario());
+         if (op != null) {
+        model.addAttribute("msg", Params.USER[op]);
+    }
         return "/admin/usuario/newUsuarioView";
     }
 
-    @PostMapping("/nuevo/submit")
-    public String addUsuarioSubmit(@Valid Usuario usuarioForm,
-            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "redirect:/admin/usuarios?op=2";
-        }
-        usuarioService.anadir(usuarioForm);
-        return "redirect:/admin/usuarios?op=1";
+   @PostMapping("/nuevo/submit")
+public String addUsuarioSubmit(@Valid Usuario usuarioForm,
+                               BindingResult bindingResult) {
+    if (bindingResult.hasErrors()) {
+        return "redirect:/admin/usuarios?op=2";
     }
+    if (usuarioService.anadir(usuarioForm) == null) {
+        return "redirect:/admin/usuarios/nuevo?op=7";
+    }
+    return "redirect:/admin/usuarios?op=1";
+}
+
 
     @GetMapping("/editar/{id}")
     public String editUsuario(@PathVariable Long id, Model model) {
