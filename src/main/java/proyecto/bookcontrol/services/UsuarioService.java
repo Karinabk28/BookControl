@@ -2,7 +2,7 @@ package proyecto.bookcontrol.services;
 
 import proyecto.bookcontrol.domain.Usuario;
 import proyecto.bookcontrol.exceptions.NotFoundException;
-import java.util.List;
+
 
 import org.springframework.data.domain.Pageable;
 
@@ -14,6 +14,5 @@ public interface UsuarioService {
     Usuario obtenerPorId(Long id) throws NotFoundException;
     Usuario editar(Usuario usuario) throws NotFoundException;
     void borrar(Long id) throws NotFoundException;
-    List<Usuario> obtenerTodos();
     Page<Usuario> obtenerTodosPaginado(Pageable pageable);
 }

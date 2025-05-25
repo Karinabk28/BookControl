@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import proyecto.bookcontrol.domain.Libro;
 import proyecto.bookcontrol.exceptions.NotFoundException;
@@ -23,10 +25,6 @@ public class LibroServiceImplBD implements LibroService {
             ex.printStackTrace();
             return null;
         }
-    }
-
-    public Libro registrarLibro(Libro libro) {
-        return libroRepository.save(libro);
     }
 
     public List<Libro> obtenerTodos() {
@@ -56,10 +54,14 @@ public class LibroServiceImplBD implements LibroService {
 
 
     public Libro obtenerLibroDestacado() {
+        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'obtenerLibroDestacado'");
     }
 
+
+    public Page<Libro> obtenerTodosPaginado(Pageable pageable) {
+        return libroRepository.findAll(pageable);
+    }
+
     
-
-
 }

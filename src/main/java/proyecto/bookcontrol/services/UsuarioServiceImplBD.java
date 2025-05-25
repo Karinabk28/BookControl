@@ -1,7 +1,5 @@
 package proyecto.bookcontrol.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -40,10 +38,6 @@ public class UsuarioServiceImplBD implements UsuarioService {
         return UsuarioRepository.save(usuario);
     }
 
-    public List<Usuario> obtenerTodos() {
-        return UsuarioRepository.findAll();
-    }
-
     public Usuario obtenerPorId(Long id) throws NotFoundException {
         return UsuarioRepository.findById(id).orElseThrow();
     }
@@ -66,7 +60,5 @@ public class UsuarioServiceImplBD implements UsuarioService {
     public Page<Usuario> obtenerTodosPaginado(Pageable pageable) {
         return UsuarioRepository.findAll(pageable);
     }
-
-    
 
 }

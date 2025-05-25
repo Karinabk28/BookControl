@@ -41,7 +41,7 @@ public class AuthController {
             return "redirect:/admin/home";
         }
         else if (authorities.contains("ROLE_USUARIO")) {
-            return "redirect:/user/home";  
+            return "redirect:/home";  
         }
         return "redirect:/login?error=rol_desconocido";
     }
