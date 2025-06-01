@@ -15,23 +15,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/admin/**").hasRole("ADMIN")  
-                .requestMatchers("/user/**").hasRole("USUARIO") 
-                .requestMatchers("/registro", "/login").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(login -> login
-                .loginPage("/login")
-                .defaultSuccessUrl("/default", true) 
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/auth/login?logout")
-                .permitAll()
-            );
-    
+           .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/home", "/libros", "/libros/**", "/perfil", "/perfil/**", "/listas", "/listas/**").hasRole("USUARIO")
+                        .requestMatchers("/registro", "/login").permitAll()
+                        .requestMatchers("/api/libros").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/default", true)
+                        .permitAll())
+                .exceptionHandling(ex -> ex
+                        .accessDeniedPage("/error/403")
+                )
+
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/auth/login?logout")
+                        .permitAll());
+
         return http.build();
     }
     
