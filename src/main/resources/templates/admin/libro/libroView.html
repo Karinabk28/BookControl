@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista Libro</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/js.js" defer></script>
+    <script src="/js/importadorLibros.js"></script>
+
+</head>
+
+<body>
+    <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+    <main class="admin-panel">
+        <h1 class="admin-titulo">Lista de Libros</h1>
+        <p class="admin-mensaje-info" th:if="${msg != null}" th:text="${msg}">mensaje</p>
+        <section class="librosFiltros">
+            <label for="filtro-autor">Autor:</label>
+            <select id="filtro-autor">
+                <option value="">-- Todos --</option>
+            </select>
+            <label for="filtro-genero">Género:</label>
+            <select id="filtro-genero">
+                <option value="">-- Todos --</option>
+            </select>
+        </section>
+        <div class="admin-tabla-princip">
+            <table class="admin-tabla libros">
+                <thead>
+                    <tr>
+                        <th>Portada</th>
+                        <th>Título</th>
+                        <th>Autor</th>
+                        <th>Género</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="libro : ${listaLibro}" class="filtro"
+                        th:attr="data-autor=${libro.autor}, data-genero=${libro.genero}">
+
+                        <td><img class="admin-img-portada" th:src="${libro.portada}" alt="Portada del libro" /></td>
+                        <td th:text="${libro.titulo}"></td>
+                        <td th:text="${libro.autor}"></td>
+                        <td th:text="${libro.genero}"></td>
+                        <td th:text="${libro.descripcion}"></td>
+                        <td>
+                            <a class="admin-enlace editar"
+                                th:href="@{/admin/libros/editar/{id}(id=${libro.id})}">Editar</a>
+                            |
+                            <a class="admin-enlace eliminar"
+                                th:href="@{/admin/libros/borrar/{id}(id=${libro.id})}">Borrar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="admin-paginacion" th:if="${totalPaginas > 1}">
+                <a th:if="${paginaActual > 0}" th:href="@{/admin/libros(page=${paginaActual - 1})}">Anterior</a>
+
+                <a th:each="i : ${#numbers.sequence(0, totalPaginas - 1)}" th:href="@{/admin/libros(page=${i})}"
+                    th:text="${i + 1}"></a>
+
+                <a th:if="${paginaActual < totalPaginas - 1}"
+                    th:href="@{/admin/libros(page=${paginaActual + 1})}">Siguiente</a>
+            </div>
+            <div class="admin-boton-nuevo">
+                <a th:href="@{/admin/libros/nuevo}" class="admin-boton">Añadir Nuevo Libro</a>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+
+</html>

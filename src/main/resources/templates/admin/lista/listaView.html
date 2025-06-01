@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Libros por Usuario</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+  <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+  <main class="admin-panel">
+
+    <h1 class="admin-titulo">Listas de Usuarios</h1>
+
+    <!-- Mensaje -->
+    <p class="admin-mensaje-info" th:if="${msg != null}" th:text="${msg}">mensaje</p>
+
+    <!-- Tabla -->
+    <div class="admin-tabla-wrapper">
+      <table class="admin-tabla">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Libro</th>
+            <th>Estado de Lectura</th>
+            <th>Favorito</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="l : ${listaListas}">
+            <td th:text="${l.usuario.nombre}">Usuario</td>
+            <td th:text="${l.libro.titulo}">Libro</td>
+            <td th:text="${l.estadoLectura != null ? l.estadoLectura.name() : 'Sin estado'}">Estado</td>
+            <td th:text="${l.favorito ? 'Sí' : 'No'}">Favorito</td>
+            <td>
+              <a th:href="@{/admin/listas/borrar/{id}(id=${l.id})}" class="admin-enlace eliminar"
+                onclick="return confirm('¿Estás seguro de eliminar esta relación?')">Eliminar</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="admin-paginacion" th:if="${totalPaginas > 1}">
+      <a th:if="${paginaActual > 0}" th:href="@{/admin/listas(page=${paginaActual - 1})}">Anterior</a>
+
+      <a th:each="i : ${#numbers.sequence(0, totalPaginas - 1)}" th:href="@{/admin/listas(page=${i})}"
+        th:text="${i + 1}" th:class="${i == paginaActual ? 'pagina activo' : 'pagina'}"></a>
+
+      <a th:if="${paginaActual < totalPaginas - 1}" th:href="@{/admin/listas(page=${paginaActual + 1})}">Siguiente</a>
+    </div>
+  </main>
+  <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+
+</html>

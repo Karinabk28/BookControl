@@ -18,11 +18,14 @@
           class="logo-empresa" /></a>
       <nav class="cabecera-enlaces">
         <!--OPCIONES PARA EL ADMINISTRADOR-->
-     
+
         <a th:href="@{/admin/libros}" sec:authorize="hasRole('ADMIN')">Libros</a>
         <a th:href="@{/admin/listas}" sec:authorize="hasRole('ADMIN')">Listas</a>
         <a th:href="@{/admin/usuarios}" sec:authorize="hasRole('ADMIN')">Usuarios</a>
         <a th:href="@{/admin/reviews}" sec:authorize="hasRole('ADMIN')">Reseñas</a>
+        <form th:action="@{/logout}" method="post" sec:authorize="hasRole('ADMIN')">
+          <button style="background-color: rgb(133, 9, 9);" type="submit" class="perfilBoton">Cerrar sesión</button>
+        </form>
         <!--OPCIONES PARA UN USUARIO-->
         <a th:href="@{/home}" sec:authorize="hasRole('USUARIO')">Inicio</a>
         <a th:href="@{/libros}" sec:authorize="hasRole('USUARIO')">Explorar</a>

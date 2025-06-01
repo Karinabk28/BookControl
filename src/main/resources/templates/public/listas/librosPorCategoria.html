@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+  <main class="listasContenedor">
+    <h1 class="listasTitulo" th:text="${titulo}">Categoría</h1>
+
+    <div class="listasGrid">
+      <div th:each="libro : ${libros}" class="tarjetaListaLibro">
+        <a th:href="@{/libros/{id}(id=${libro.id})}">
+          <img th:src="${libro.portada}" alt="Portada del libro" />
+        </a>
+        <h3 th:text="${libro.titulo}">Título</h3>
+        <p th:text="${libro.autor}">Autor</p>
+        <p th:text="${libro.genero}">Género</p>
+
+        <form th:action="@{/listas/eliminar}" method="post">
+          <input type="hidden" name="libroId" th:value="${libro.id}" />
+          <input type="hidden" name="tipo" th:value="${titulo}" />
+          <button type="submit" class="botonEliminarLista">Eliminar de esta lista</button>
+        </form>
+
+      </div>
+    </div>
+
+    <a href="/listas" class="volverLink">← Volver a mis listas</a>
+  </main>
+  <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+
+</html>
