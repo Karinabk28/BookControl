@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/*---------------------------------------ESTILOS PARA LA CABECERA---------------------------------*/
+.cabecera {
+    background-color: #34495e;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cabecera-contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo-empresa {
+    height: 70px;
+}
+
+.cabecera-enlaces {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.cabecera-enlaces a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/*-------------------------------ESTILOS PARA LA PAGINA DE PERFILVIEW Y PERFILEDIT-----------------------------------------*/
+.perfilContenedor {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 80px;
+}
+
+.perfilTitulo {
+    font-weight: 600;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 20px;
+}
+
+.perfilDato {
+    margin-bottom: 16px;
+}
+
+.perfilDato label {
+    width: 100%;
+}
+
+.perfilLink {
+    margin-top: 12px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.perfilDato input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+.botonVolver {
+    margin-top: 10px;
+    color: #007BFF;
+    text-decoration: none; 
+}
+
+.perfilBoton {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 14px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+}
+.perfilLink {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-right: 1.5rem;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.perfilBoton.cerrarSesion {
+    background-color: #b12634;
+}
+
+.cerrarSesion {
+    margin: 0;
+    padding-bottom: 12px;
+    text-align: center;
+}
+
+.perfilError {
+    color: #e63946;
+    
+}
+
+@media (max-width: 600px) {
+    .perfilContenedor {
+        padding: 2rem 1rem;
+        margin: 30px 1rem;
+    }
+
+    .perfilTitulo {
+        font-size: 1.5rem;
+    }
+
+    .perfilLink {
+        display: inline-block;
+        margin-right: 1.5rem;
+    }
+}

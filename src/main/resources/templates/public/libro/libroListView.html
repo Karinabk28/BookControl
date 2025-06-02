@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explorar Libros</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/js.js"></script>
+</head>
+
+<body>
+  <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+  <main class="librosContenedor">
+    <h1 class="librosTitulo">Explorar libros</h1>
+
+    <section class="librosFiltros">
+      <label for="filtro-autor">Autor:</label>
+      <select id="filtro-autor">
+        <option value="">-- Todos --</option>
+      </select>
+
+      <label for="filtro-genero">Género:</label>
+      <select id="filtro-genero">
+        <option value="">-- Todos --</option>
+      </select>
+    </section>
+
+    <section class="librosGrid">
+      <div th:each="libro : ${listaLibro}" class="tarjetaLibro"
+        th:attr="data-autor=${libro.autor}, data-genero=${libro.genero}">
+
+        <a th:href="@{/libros/{id}(id=${libro.id})}">
+          <img th:src="${libro.portada}" alt="Portada del libro" class="libroImagen" />
+        </a>
+
+        <h3 th:text="${libro.titulo}"></h3>
+        <p th:text="${libro.autor}"></p>
+        <p th:text="${libro.genero}"></p>
+        <p th:text="${libro.valoracionMedia != null} ? '★ ' + ${libro.valoracionMedia} + ' / 5' : 'Sin valoración'"></p>
+
+        <form th:action="@{'/libros/' + ${libro.id} + '/listas'}" method="post" class="formLibroLista"
+          sec:authorize="hasRole('USUARIO')">
+          <select name="lista">
+            <option value="QUIERO_LEER">Quiero leer</option>
+            <option value="LEYENDO">Leyendo</option>
+            <option value="LEIDO">Leído</option>
+          </select>
+
+          <label>
+            <input type="checkbox" name="favorito" />Favorito
+          </label>
+
+          <button type="submit">Guardar</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+
+</html>

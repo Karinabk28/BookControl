@@ -8,7 +8,8 @@ public class Params {
         "Usuario a editar no encontrado",
         "Datos incorrectos en edición de usuario",
         "Usuario editado correctamente",
-        "Usuario eliminado correctamente"
+        "Usuario eliminado correctamente",
+        "Ya existe un usuario con ese nombre o email"
     };
 
     public static final String [] LIBRO = {
@@ -20,4 +21,15 @@ public class Params {
         "Libro editado correctamente",
         "Libro eliminado correctamente"
     };
+    public static final String [] REVIEW = {
+        "Review añadida correctamente",
+        "Review eliminado correctamente"
+    };
+
+     public static final String[] LISTA = {
+        "",
+        "Lista eliminada correctamente.",
+        "Error al eliminar la lista."
+    };
+    
 }

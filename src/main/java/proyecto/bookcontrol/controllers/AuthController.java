@@ -1,9 +1,9 @@
 package proyecto.bookcontrol.controllers;
 
+import proyecto.bookcontrol.domain.Libro;
 import proyecto.bookcontrol.domain.Usuario;
-
+import proyecto.bookcontrol.services.LibroService;
 import proyecto.bookcontrol.services.UsuarioService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +16,8 @@ public class AuthController {
 
     @Autowired
     private UsuarioService usuarioService;
+    @Autowired
+    private LibroService libroService;
 
     @GetMapping("/login")
     public String login() {
@@ -25,7 +27,7 @@ public class AuthController {
     @GetMapping("/registro")
     public String mostrarFormularioRegistro(Model model) {
         model.addAttribute("usuario", new Usuario());
-        return "auth/register"; 
+        return "auth/register";
     }
 
     @PostMapping("/registro")
@@ -39,19 +41,21 @@ public class AuthController {
         String authorities = authentication.getAuthorities().toString();
         if (authorities.contains("ROLE_ADMIN")) {
             return "redirect:/admin/home";
-        }
-        else if (authorities.contains("ROLE_USUARIO")) {
-            return "redirect:/home";  
+        } else if (authorities.contains("ROLE_USUARIO")) {
+            return "redirect:/home";
         }
         return "redirect:/login?error=rol_desconocido";
     }
+
     @GetMapping("/home")
-    public String userHome() {
+    public String userHome(Model model) {
+        Libro libroDestacado = libroService.obtenerLibroDestacado();
+        model.addAttribute("libroDestacado", libroDestacado);
         return "public/home";
     }
-    
+
     @GetMapping("/admin/home")
     public String adminHome() {
-        return "admin/home";
+        return "admin/libro/libroView";
     }
 }

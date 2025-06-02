@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración</title>
-    <link rel="stylesheet" href="/css/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Administración</title>
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
   <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
 
@@ -13,17 +15,17 @@
     <h1 class="perfilTitulo">Mi Perfil</h1>
     <p class="perfilDato"><strong>Nombre:</strong> <span th:text="${usuario.nombre}">nombre</span></p>
     <p class="perfilDato"><strong>Email:</strong> <span th:text="${usuario.email}">email</span></p>
-    <p class="perfilDato"><strong>Fecha Registro:</strong> <span th:text="${usuario.fechaRegistro}">Fecha Registro</span></p>
+    <p class="perfilDato"><strong>Fecha Registro:</strong> <span th:text="${usuario.fechaRegistro}">Fecha
+        Registro</span></p>
     <a th:href="@{/perfil/editar}" class="perfilLink">Editar Perfil</a>
     <a th:href="@{/perfil/borrar}" class="perfilLink">Eliminar Cuenta</a>
   </main>
-
   <hr>
 
-  <form class="cerrarSesion" th:action="@{/logout}" method="post" >
+  <form class="cerrarSesion" th:action="@{/logout}" method="post">
     <button type="submit" class="perfilBoton cerrarSesion">Cerrar sesión</button>
   </form>
-  
-  
+  <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
 </body>
+
 </html>

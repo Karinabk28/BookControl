@@ -1,39 +1,56 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuario</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
     <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
-    <h1>Editar Usuario</h1>
 
-    <form th:action="@{/admin/usuarios/editar/submit}" th:object="${usuarioForm}" method="post">
-        <input type="hidden" th:field="*{id}">
+    <main class="admin-panel">
 
-        <label>Nombre:</label>
-        <input type="text" th:field="*{nombre}" required>
-        <br>
+        <h1 class="admin-titulo">Editar Usuario</h1>
 
-        <label>Email:</label>
-        <input type="email" th:field="*{email}" required>
-        <br>
+        <form class="admin-formulario" th:action="@{/admin/usuarios/editar/submit}" th:object="${usuarioForm}"
+            method="post">
 
-        <label>Contraseña:</label>
-        <input type="password" th:field="*{clave}" required>
-        <br>
+            <input type="hidden" th:field="*{id}" />
 
-        <label>Rol:</label>
-        <select th:field="*{rol}">
-            <option value="ADMIN">Admin</option>
-            <option value="USUARIO">Usuario</option>
-        </select>
-        <br>
+            <div class="form-grupo">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required />
+            </div>
 
-        <button type="submit">Actualizar</button>
-    </form>
+            <div class="form-grupo">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" required />
+            </div>
 
-    <a href="/usuarios">Volver</a>
+            <div class="form-grupo">
+                <label for="clave">Contraseña:</label>
+                <input type="password" id="clave" th:field="*{clave}" required />
+            </div>
+
+            <div class="form-grupo">
+                <label for="rol">Rol:</label>
+                <select id="rol" th:field="*{rol}">
+                    <option value="ADMIN">Admin</option>
+                    <option value="USUARIO">Usuario</option>
+                </select>
+            </div>
+
+            <button class="admin-boton" type="submit">Actualizar</button>
+        </form>
+
+        <div class="admin-boton-nuevo" style="margin-top: 1rem;">
+            <a class="admin-enlace" href="/admin/usuarios">Volver</a>
+        </div>
+    </main>
+    <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
 </body>
+
 </html>

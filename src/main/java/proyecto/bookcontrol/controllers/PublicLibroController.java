@@ -1,8 +1,12 @@
 package proyecto.bookcontrol.controllers;
 
 import proyecto.bookcontrol.domain.Libro;
+import proyecto.bookcontrol.domain.EstadoLectura;
+import proyecto.bookcontrol.domain.Usuario;
 import proyecto.bookcontrol.exceptions.NotFoundException;
+import proyecto.bookcontrol.repositories.UsuarioRepository;
 import proyecto.bookcontrol.services.LibroService;
+import proyecto.bookcontrol.services.ListasService;
 import proyecto.bookcontrol.services.ReviewService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +23,11 @@ public class PublicLibroController {
     private LibroService libroService;
     @Autowired
     private ReviewService reviewService;
-  
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private ListasService listasService;
 
     @GetMapping("")
     public String listarLibros(Model model) {
@@ -54,6 +61,13 @@ public class PublicLibroController {
         return "redirect:/libros/" + id;
     }
   
- 
+    @PostMapping("/{id}/listas")
+    public String actualizarLista(@PathVariable Long id, @RequestParam EstadoLectura lista,
+            @RequestParam(required = false) boolean favorito, Authentication auth) throws NotFoundException {
+        Usuario usuario = usuarioRepository.findByNombre(auth.getName());
+        Libro libro = libroService.obtenerPorId(id);
+        listasService.asignarLista(usuario, libro, lista, favorito);
+        return "redirect:/libros";
+    }
    
 }

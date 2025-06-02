@@ -1,7 +1,7 @@
 package proyecto.bookcontrol.services;
 
 import java.util.List;
-
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -52,16 +52,17 @@ public class LibroServiceImplBD implements LibroService {
         return libroRepository.findByTituloContainingIgnoreCase(titulo);
     }
 
-
     public Libro obtenerLibroDestacado() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerLibroDestacado'");
+        List<Libro> libros = libroRepository.findAll();
+        if (libros.isEmpty()) {
+            return null;
+        }
+        int randomIndex = new Random().nextInt(libros.size());
+        return libros.get(randomIndex);
     }
-
 
     public Page<Libro> obtenerTodosPaginado(Pageable pageable) {
         return libroRepository.findAll(pageable);
     }
 
-    
 }
