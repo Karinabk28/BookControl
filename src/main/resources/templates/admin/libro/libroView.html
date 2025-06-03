@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="/css/styles.css">
     <script src="/js/js.js" defer></script>
     <script src="/js/importadorLibros.js"></script>
-
 </head>
 
 <body>
@@ -16,17 +15,11 @@
 
     <main class="admin-panel">
         <h1 class="admin-titulo">Lista de Libros</h1>
+        <form th:action="@{/logout}" method="post" sec:authorize="hasRole('ADMIN')">
+            <button type="submit" class="cerrar-sesion-boton">Cerrar sesión</button>
+        </form>
+
         <p class="admin-mensaje-info" th:if="${msg != null}" th:text="${msg}">mensaje</p>
-        <section class="librosFiltros">
-            <label for="filtro-autor">Autor:</label>
-            <select id="filtro-autor">
-                <option value="">-- Todos --</option>
-            </select>
-            <label for="filtro-genero">Género:</label>
-            <select id="filtro-genero">
-                <option value="">-- Todos --</option>
-            </select>
-        </section>
         <div class="admin-tabla-princip">
             <table class="admin-tabla libros">
                 <thead>
@@ -35,7 +28,6 @@
                         <th>Título</th>
                         <th>Autor</th>
                         <th>Género</th>
-                        <th>Descripción</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -47,7 +39,6 @@
                         <td th:text="${libro.titulo}"></td>
                         <td th:text="${libro.autor}"></td>
                         <td th:text="${libro.genero}"></td>
-                        <td th:text="${libro.descripcion}"></td>
                         <td>
                             <a class="admin-enlace editar"
                                 th:href="@{/admin/libros/editar/{id}(id=${libro.id})}">Editar</a>

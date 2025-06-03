@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Administración</title>
+    <title>Inicio</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <style>
-        
-    </style>
+    <script src="/js/importadorLibros.js" defer></script>
+
 </head>
 <body>
 
@@ -18,12 +17,16 @@
         <h1>¡Bienvenido, <span th:text="${#authentication.name}">usuario</span>!</h1>
         <p>Explora nuestra biblioteca digital, encuentra inspiración y descubre nuevas historias que te acompañarán siempre.</p>
     </section>
+
+    <!-- Barra de búsqueda -->
     <section class="buscador">
         <form th:action="@{/libros/buscar}" method="get">
             <input type="text" name="titulo" placeholder="Buscar por título..." required/>
             <button type="submit">Buscar</button>
         </form>
     </section>
+
+    <!-- Resultados de búsqueda -->
     <section class="resultados">
         <div th:if="${mensaje}">
             <p th:text="${mensaje}" class="mensaje-error"></p>
@@ -38,16 +41,18 @@
             </div>
         </div>
     </section>
+
+    <!-- Libro destacado -->
     <section class="libro-destacado" th:if="${libroDestacado != null}">
         <h2>Recomendación del día</h2>
         <div class="libro">
             <img th:src="${libroDestacado.portada}" alt="Portada del libro" class="portada"/>
             <h3 th:text="${libroDestacado.titulo}">Título</h3>
-            <p th:text="${libroDestacado.autor}">Autor</p>
-            <p class="descripcion">Una historia que merece ser descubierta. ¡No te la pierdas!</p>
             <a th:href="@{'/libros/' + ${libroDestacado.id}}" class="boton-secundario">Ver más</a>
         </div>
     </section>
+
+    <!-- Botón explorar -->
     <section class="explorar-catalogo">
         <a th:href="@{/libros}">
             <button class="boton-principal">Explorar el catálogo</button>
