@@ -31,7 +31,7 @@ public class LibroController {
         if (op != null) {
             model.addAttribute("msg", Params.LIBRO[op]);
         }
-        Pageable pageable = PageRequest.of(page, 3);
+        Pageable pageable = PageRequest.of(page, 6);
         Page<Libro> libros = libroService.obtenerTodosPaginado(pageable);
 
         model.addAttribute("listaLibro", libros.getContent());

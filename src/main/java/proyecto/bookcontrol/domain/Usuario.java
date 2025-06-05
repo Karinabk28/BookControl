@@ -28,9 +28,9 @@ public class Usuario {
     @NotEmpty
     private String nombre;
 
-    @Column(unique = true) // Asegura que el email sea único
+    @Column(unique = true)
     @NotEmpty
-    @Email // Verifica que el formato del correo sea válido
+    @Email 
     private String email;
     
     @Size(min = 4)
@@ -56,7 +56,3 @@ public class Usuario {
     }
     
 }
-
-
-
-

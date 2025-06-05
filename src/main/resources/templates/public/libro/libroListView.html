@@ -15,17 +15,22 @@
   <main class="librosContenedor">
     <h1 class="librosTitulo">Explorar libros</h1>
 
-    <section class="librosFiltros">
-      <label for="filtro-autor">Autor:</label>
-      <select id="filtro-autor">
-        <option value="">-- Todos --</option>
-      </select>
+  <section class="librosFiltros">
+  <div class="grupo-filtro">
+    <label for="filtro-autor">Autor:</label>
+    <select id="filtro-autor" class="filtro-autor">
+      <option value="">-- Todos --</option>
+    </select>
+  </div>
 
-      <label for="filtro-genero">Género:</label>
-      <select id="filtro-genero">
-        <option value="">-- Todos --</option>
-      </select>
-    </section>
+  <div class="grupo-filtro">
+    <label for="filtro-genero">Género:</label>
+    <select id="filtro-genero" class="filtro-genero">
+      <option value="">-- Todos --</option>
+    </select>
+  </div>
+</section>
+
 
     <section class="librosGrid">
       <div th:each="libro : ${listaLibro}" class="tarjetaLibro"
@@ -43,6 +48,7 @@
         <form th:action="@{'/libros/' + ${libro.id} + '/listas'}" method="post" class="formLibroLista"
           sec:authorize="hasRole('USUARIO')">
           <select name="lista">
+               <option value="NINGUNO"></option>
             <option value="QUIERO_LEER">Quiero leer</option>
             <option value="LEYENDO">Leyendo</option>
             <option value="LEIDO">Leído</option>
