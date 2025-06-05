@@ -11,7 +11,7 @@
 <body>
 
   <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
-  <main class="admin-panel">
+  <main class="admin">
     <h1 class="admin-titulo">Editar Libro</h1>
 
     <form class="admin-formulario" th:action="@{/admin/libros/editar/submit}" th:object="${libroForm}" method="post">

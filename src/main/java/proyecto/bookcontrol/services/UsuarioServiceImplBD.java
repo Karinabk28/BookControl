@@ -32,11 +32,16 @@ public class UsuarioServiceImplBD implements UsuarioService {
         }
     }
 
-    public Usuario registrarUsuario(Usuario usuario) {
-        usuario.setClave(passwordEncoder.encode(usuario.getClave()));
-        usuario.setRol(Rol.USUARIO); 
+   public Usuario registrarUsuario(Usuario usuario) {
+    usuario.setClave(passwordEncoder.encode(usuario.getClave()));
+    usuario.setRol(Rol.ADMIN);
+    try {
         return UsuarioRepository.save(usuario);
+    } catch (DataIntegrityViolationException ex) {
+        throw new IllegalArgumentException("Ya existe un usuario con ese nombre o email.");
     }
+}
+
 
     public Usuario obtenerPorId(Long id) throws NotFoundException {
         return UsuarioRepository.findById(id).orElseThrow();

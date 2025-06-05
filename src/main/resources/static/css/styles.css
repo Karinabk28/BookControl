@@ -7,7 +7,7 @@ body {
 
 /*---------------------------------------ESTILOS PARA LA CABECERA---------------------------------*/
 .cabecera {
-    background-color: #34495e;
+    background-color: #053e75;
     color: white;
     padding: 10px 20px;
     display: flex;
@@ -38,6 +38,36 @@ body {
     text-decoration: none;
     font-size: 16px;
 }
+@media (max-width: 768px) {
+  .cabecera {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+  }
+
+  .cabecera-contenedor {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cabecera-enlaces {
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 10px;
+  }
+
+  .cabecera-enlaces a,
+  .cabecera-enlaces form {
+    font-size: 13px; 
+  }
+
+  .logo-empresa {
+    height: 50px;
+  }
+}
+
 
 /*-------------------------------ESTILOS PARA LA PAGINA DE PERFILVIEW Y PERFILEDIT-----------------------------------------*/
 .perfilContenedor {
@@ -82,14 +112,16 @@ body {
 }
 
 .perfilBoton {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 14px;
-    font-size: 1rem;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 100%;
-    max-width: 300px;
+  background-color: #053e75;
+  color: #fff;
+  padding: 14px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  max-width: 300px;
+  transition: background-color 0.2s ease;
 }
 .perfilLink {
     display: inline-block;
@@ -130,3 +162,838 @@ body {
         margin-right: 1.5rem;
     }
 }
+
+/*--------------------ESTILOS PARA LA PAGINA DE LISTAS Y LISTASPORCATEGORIA-------------------------------------------*/
+.listasContenedor {
+  max-width: 900px;
+  margin: 60px auto;
+  padding: 40px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.listasTitulo {
+  font-size: 28px;
+  color: #053e75;
+  text-align: center;
+}
+
+.listasMenu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listasMenu li {
+  flex: 1 200px;
+  max-width: 250px;
+}
+
+.listasMenu li a {
+  display: block;
+  padding: 16px;
+  background-color: #f0f4fa;
+  border: 1px solid #d0e0f0;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #053e75;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.listasMenu li a:hover {
+  transform: translateY(-2px);
+}
+
+.listasGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 2rem;
+}
+
+
+.tarjetaListaLibro {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.tarjetaListaLibro:hover {
+  transform: translateY(-2px);
+}
+
+.tarjetaListaLibro img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  object-fit: cover;
+  max-height: 250px;
+}
+
+.tarjetaListaLibro h3 {
+  font-size: 18px;
+  color: #053e75;
+  margin: 8px;
+}
+
+.tarjetaListaLibro p {
+  font-size: 14px;
+  color: #555;
+  margin: 4px;
+}
+
+.botonEliminarLista {
+  margin-top: 12px;
+  padding: 8px;
+  font-size: 14px;
+  background-color: #b12634;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.botonEliminarLista:hover {
+  background-color: #911c28;
+}
+
+.volverLink {
+  display: inline-block;
+  margin-top: 40px;
+  color: #007BFF;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .tarjetaListaLibro {
+    padding: 12px;
+  }
+
+  .tarjetaListaLibro h3 {
+    font-size: 16px;
+  }
+
+  .tarjetaListaLibro p {
+    font-size: 13px;
+  }
+
+  .botonEliminarLista {
+    width: 100%;
+  }
+    .listasContenedor {
+    margin: 30px;
+    padding: 20px;
+  }
+
+  .listasTitulo {
+    font-size: 24px;
+  }
+
+  .listasMenu li a {
+    font-size: 16px;
+    padding: 14px;
+  }
+  .listasGrid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); 
+  gap: 2rem;
+}
+
+
+}
+
+/* -------------------- EXPLORAR LIBROS (LibroListView) -------------------- */
+.librosTitulo {
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.librosFiltros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.grupo-filtro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+}
+
+.filtro-autor,.filtro-genero {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: border-color 0.2s ease;
+  max-width: 180px;
+}
+
+.librosGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.tarjetaLibro {
+    background-color: #ffffff;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 350px;
+    padding: 1.5rem;
+}
+
+.tarjetaLibro img.libroImagen {
+    width: 80%;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    background-color: #fdf9f3;
+}
+
+.tarjetaLibro h3 {
+    font-size: 1rem;
+    color: #2c3e50;
+    margin: 0.5rem 0;
+}
+
+.tarjetaLibro p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0.25rem;
+}
+
+.formLibroLista select {
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.formLibroLista label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    margin: 0.5rem;
+}
+
+.formLibroLista button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 1024px) {
+    .librosGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .librosGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+/* -------------------- DETALLE LIBRO (LibroDetailView) -------------------- */
+.libroDetalle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+}
+
+.libroImagenDetalle {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.libroInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 1.5rem;
+}
+
+.libroInfo h1 {
+    color: #2c3e50;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.libroInfo p {
+    margin: 0.5rem 0;
+    color: #555;
+    line-height: 1.6;
+}
+
+.libroLectura {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.botonLeerLibro {
+    background-color: #0d3b66;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    margin: 16px 0;
+    font-size: 1.1rem;
+}
+
+.botonLeerLibro:hover {
+    background-color: #093b5d;
+}
+
+.libroResenas {
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+}
+
+.libroResenas h2 {
+    color: #1e2a38;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.tarjetaResena {
+    background: #f9f9f9;
+    border-left: 4px solid #007BFF;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.tarjetaResena:hover {
+    transform: translateY(-5px);
+}
+
+.tarjetaResena p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.errorValoracion {
+    color: #e63946;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+
+/* -------------------- FORMULARIO DE RESEÑA -------------------- */
+.libroResenaForm {
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    background: #f7f9fc;
+}
+
+.libroResenaForm h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+}
+
+.estrellas {
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.estrella {
+    color: #ccc;
+}
+
+
+.libroResenaForm textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    min-height: 120px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+.libroResenaForm textarea:focus {
+    border-color: #0d6efd;
+    outline: none;
+}
+
+.enviarReview {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 0.95rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.enviarReview:hover {
+    background-color: #0b5ed7;
+}
+
+/* -------------------- HOME DEL USUARIO -------------------- */
+.contenedor-principal {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.bienvenida h1 {
+  color: #2c3e50;
+  text-align: center;
+}
+
+.bienvenida p {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.buscador {
+  text-align: center;
+  margin: 2rem;
+}
+
+.buscador input[type="text"] {
+  padding: 0.7rem;
+  width: 300px;
+  max-width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.buscador button {
+  padding: 0.7rem 1.2rem;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.mensaje-error {
+  color: #c0392b;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.grid-libros {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.grid-libros .libro {
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  padding: 1rem;
+}
+
+.grid-libros .libro:hover {
+  transform: translateY(-5px);
+}
+
+.grid-libros .libro h3 {
+  color: #2c3e50;
+}
+
+.grid-libros .libro p {
+  color: #666;
+}
+
+.grid-libros .libro a {
+  color: #007BFF;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.libro-destacado {
+  padding: 2rem;
+  border-left: 6px solid #007BFF;
+  border-radius: 8px;
+  margin-top: 3rem;
+  background-color: #eaf0f7;
+}
+
+.boton-secundario,
+.boton-principal {
+  padding: 0.95rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
+.boton-secundario {
+  background-color: #6c757d;
+}
+
+.boton-principal {
+  background-color: #007BFF;
+}
+
+.explorar-catalogo {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  .buscador input[type="text"],
+  .buscador button {
+    width: 100%;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+  }
+
+}
+
+/*-------------------------------ESTILOS PARA EL ADMIN-------------------------------------------*/
+/* -------------------- PANEL ADMINISTRACIÓN -------------------- */
+.admin-tabla-princip {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-panel {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fafafa;
+}
+
+.admin-titulo {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    text-align: center;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+/* -------------------- TABLAS -------------------- */
+.admin-tabla {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.admin-tabla th,
+.admin-tabla td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 0.95rem;
+}
+
+.admin-tabla th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #053e75;
+}
+
+.admin-tabla tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* -------------------- ENLACES -------------------- */
+
+.admin-enlace {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.admin-enlace.editar {
+    color: #007BFF;
+}
+
+.admin-enlace.eliminar {
+    color: #c0392b;
+}
+
+/* -------------------- BOTÓN NUEVO -------------------- */
+.admin-boton-nuevo {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.admin-boton {
+    background-color: #007BFF;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.admin-boton:hover {
+    background-color: #0056b3;
+}
+/*BOTON CERRAR SESION*/
+.cerrar-sesion-boton {
+  background-color: #b00020;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.cerrar-sesion-boton:hover {
+  background-color: #920016;
+}
+
+/* -------------------- PAGINACIÓN -------------------- */
+
+.admin-paginacion {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.admin-paginacion a {
+    background-color: #eaeaea;
+    color: #333;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+
+}
+
+.admin-paginacion a:hover {
+    background-color: #d5d5d5;
+}
+
+/* -------------------- MENSAJES -------------------- */
+.admin-mensaje-info {
+    text-align: center;
+    color: #2c3e50;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+/*--------------------FORMULARIOS DE EDITAR ADMIN------------*/
+.admin-formulario {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-grupo label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.form-grupo input,
+.form-grupo select,
+.form-grupo textarea {
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fafafa;
+}
+
+.form-grupo textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+@media screen and (max-width: 768px) {
+    .admin-tabla.libros {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        border-collapse: collapse;
+    }
+
+    .admin-tabla.libros thead {
+        display: none;
+    }
+
+    .admin-tabla.libros tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 0.5rem;
+    }
+
+    .admin-tabla.libros td {
+        display: block;
+        text-align: left;
+        padding: 0.5rem;
+        border-bottom: 1px solid #eee;
+    }
+}
+
+@media (max-width: 720px) {
+  .admin-tabla-princip {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; 
+  }
+  .admin-tabla th,
+  .admin-tabla td {
+    padding: 0.5rem 0.7rem;
+    font-size: 0.9rem;
+  }
+
+  .admin-tabla th:nth-child(3),
+  .admin-tabla td:nth-child(3) {
+    display: none;
+  }
+  .admin-datos th:nth-child(3),
+  .admin-datos td:nth-child(3) {
+    display: none;
+  }
+  .admin-enlace.editar,
+  .admin-enlace.eliminar {
+    font-size: 1rem;
+    padding: 0.3rem 0.5rem;
+    display: inline-block;
+  }
+}
+
+/*FOOTER*/
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+.footer {
+    background-color: #053e75;
+    color: white;
+    padding: 2rem;
+}
+
+.footer-contenedor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-contenedor p {
+    margin: 0;
+    font-weight: 500;
+}
+
+.footer-enlaces {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-enlaces a {
+    color: #cce3ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 500;
+}
+
+.footer-enlaces a:hover {
+    color: #ffffff;
+}
+
+/*PAGINAS LEGALES*/
+.contenido-legal {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 10px;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.contenido-legal h1,
+.contenido-legal h2 {
+    color: #2c3e50;
+    margin-top: 1.5rem;
+}
+
+.contenido-legal ul {
+    margin-left: 1.5rem;
+}
+
+
+
