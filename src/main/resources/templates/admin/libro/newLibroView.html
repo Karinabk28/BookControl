@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir nuevo libro</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+  <main class="admin-panel">
+    <h1 class="admin-titulo">Nuevo Libro</h1>
+    <form class="admin-formulario" th:action="@{/admin/libros/nuevo/submit}" 
+          th:object="${libroForm}" method="post" enctype="multipart/form-data">
+
+      <div class="form-grupo">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" th:field="*{titulo}" required />
+      </div>
+
+      <div class="form-grupo">
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" th:field="*{autor}" required />
+      </div>
+
+      <div class="form-grupo">
+        <label for="genero">Género:</label>
+        <input type="text" id="genero" th:field="*{genero}" />
+      </div>
+
+      <div class="form-grupo">
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" th:field="*{descripcion}"></textarea>
+      </div>
+
+      <div class="form-grupo">
+        <label for="portada">Portada (URL o nombre de archivo):</label>
+        <input type="text" id="portada" name="portada" placeholder="URL o nombre del archivo" />
+      </div>
+      
+      <button class="admin-boton" type="submit">Guardar Libro</button>
+    </form>
+  </main>
+    <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${libro.titulo}">Detalle del Libro</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/js.js"></script>
+</head>
+<body>
+  <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+  <main class="librosContenedor">
+    <section class="libroDetalle">
+      <img th:src="${libro.portada}" alt="Portada del libro" class="libroImagenDetalle" />
+
+      <div class="libroInfo">
+        <h1 th:text="${libro.titulo}">Título</h1>
+        <p><strong>Autor:</strong> <span th:text="${libro.autor}"></span></p>
+        <p><strong>Género:</strong> <span th:text="${libro.genero}"></span></p>
+        <p><strong>Descripción:</strong></p>
+        <p th:text="${libro.descripcion}"></p>
+      </div>
+    </section>
+
+    <section class="libroLectura" th:if="${libro.enlaceLectura != null}">
+      <a th:href="@{${libro.enlaceLectura}}" target="_blank" class="botonLeerLibro">
+        Leer el libro
+      </a>
+    </section>
+
+    <hr>
+
+    <section class="libroResenaForm">
+      <h3>Añadir una reseña</h3>
+      <form th:action="@{/libros/{id}/valorar(id=${libro.id})}" method="post">
+        <div class="estrellas" id="rating">
+          <span class="estrella" data-value="1">★</span>
+          <span class="estrella" data-value="2">★</span>
+          <span class="estrella" data-value="3">★</span>
+          <span class="estrella" data-value="4">★</span>
+          <span class="estrella" data-value="5">★</span>
+        </div>
+        <input type="hidden" name="valor" id="valor" required />
+        <textarea name="comentario" id="comentario" rows="3" maxlength="1000"></textarea>
+        <button class="enviarReview" type="submit">Enviar reseña</button>
+        <p id="errorValoracion" class="errorValoracion" style="display: none;"></p>
+      </form>
+    </section>
+
+    <section class="libroResenas">
+      <h2>Reseñas</h2>
+      <div th:if="${#lists.isEmpty(reviews)}">
+        <p>Este libro aún no tiene reseñas.</p>
+      </div>
+      <div th:each="r : ${reviews}" class="tarjetaResena">
+        <p>
+          <strong th:text="${r.usuario.nombre}">Nombre</strong>
+          <span th:switch="${r.valoracion}" class="estrellasValoracion">
+            <span th:case="1">★☆☆☆☆</span>
+            <span th:case="2">★★☆☆☆</span>
+            <span th:case="3">★★★☆☆</span>
+            <span th:case="4">★★★★☆</span>
+            <span th:case="5">★★★★★</span>
+          </span>
+        </p>
+        <p th:text="${r.comentario}">Comentario</p>
+      </div>
+
+    </section>
+  </main>
+  <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+
+</html>

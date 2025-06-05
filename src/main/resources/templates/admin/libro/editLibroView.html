@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Libro</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+  <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+  <main class="admin">
+    <h1 class="admin-titulo">Editar Libro</h1>
+
+    <form class="admin-formulario" th:action="@{/admin/libros/editar/submit}" th:object="${libroForm}" method="post">
+
+      <input type="hidden" th:field="*{id}" />
+
+      <div class="form-grupo">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" th:field="*{titulo}" required />
+      </div>
+
+      <div class="form-grupo">
+        <label for="autor">Autor:</label>
+        <input type="text" id="autor" th:field="*{autor}" required />
+      </div>
+
+      <div class="form-grupo">
+        <label for="genero">Género:</label>
+        <input type="text" id="genero" th:field="*{genero}" />
+      </div>
+
+      <div class="form-grupo">
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" th:field="*{descripcion}"></textarea>
+      </div>
+
+      <div class="form-grupo">
+        <label for="portada">Portada (URL):</label>
+        <input type="text" id="portada" th:field="*{portada}" />
+      </div>
+
+      <button class="admin-boton" type="submit">Guardar cambios</button>
+    </form>
+
+    <div class="admin-boton-nuevo" style="margin-top: 1rem;">
+      <a class="admin-enlace" href="/admin/libros">Volver a la lista de libros</a>
+    </div>
+  </main>
+  <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+
+</html>

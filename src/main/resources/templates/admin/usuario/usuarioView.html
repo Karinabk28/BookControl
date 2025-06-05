@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Usuarios</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+    <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+    <main class="admin-panel">
+
+        <h1 class="admin-titulo">Lista de Usuarios</h1>
+        <p class="admin-mensaje-info" th:if="${msg != null}" th:text="${msg}">mensaje</p>
+        <div class="admin-tabla-princip">
+            <table class="admin-datos">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Fecha de Registro</th>
+                        <th>Editar</th>
+                        <th>Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${listaUsuario}">
+                        <td th:text="${usuario.nombre}">Nombre</td>
+                        <td th:text="${usuario.email}">Email</td>
+                        <td th:text="${usuario.fechaRegistro}">Fecha</td>
+                        <td>
+                            <a th:if="${usuario.nombre != 'Admin'}"
+                                th:href="@{/admin/usuarios/editar/{id}(id=${usuario.id})}"
+                                class="admin-enlace editar">Editar</a>
+                        </td>
+                        <td>
+                            <a th:if="${usuario.rol.name() != 'ADMIN'}"
+                                th:href="@{/admin/usuarios/borrar/{id}(id=${usuario.id})}" class="admin-enlace eliminar"
+                                onclick="return confirm('¿Estás seguro de eliminar a este usuario?');">
+                                Borrar
+                            </a>
+
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="admin-paginacion" th:if="${totalPaginas > 1}">
+                <a th:if="${paginaActual > 0}" th:href="@{/admin/usuarios(page=${paginaActual - 1})}">Anterior</a>
+
+                <a th:each="i : ${#numbers.sequence(0, totalPaginas - 1)}" th:href="@{/admin/usuarios(page=${i})}"
+                    th:text="${i + 1}"></a>
+
+                <a th:if="${paginaActual < totalPaginas - 1}"
+                    th:href="@{/admin/usuarios(page=${paginaActual + 1})}">Siguiente</a>
+            </div>
+
+            <div class="admin-boton-nuevo">
+                <a href="#" th:href="@{/admin/usuarios/nuevo}" class="admin-boton">Nuevo Usuario</a>
+            </div>
+        </div>
+    </main>
+    <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Vista</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+    <main class="admin-panel">
+        <h1 class="admin-titulo">Reseñas</h1>
+        <div class="admin-tabla-princip">
+            <table class="admin-tabla">
+                <thead>
+                    <tr>
+                        <th>Libro</th>
+                        <th>Usuario</th>
+                        <th>Valoración</th>
+                        <th>Comentario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="r : ${listaReview}">
+                        <td th:text="${r.libro.titulo}">Libro</td>
+                        <td th:text="${r.usuario.nombre}">Usuario</td>
+                        <td th:text="${r.valoracion}">Valoración</td>
+                        <td th:text="${r.comentario}">Comentario</td>
+                        <td>
+                            <a th:href="@{'/admin/reviews/borrar/' + ${r.id}}" class="admin-enlace eliminar">Eliminar</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+</html>

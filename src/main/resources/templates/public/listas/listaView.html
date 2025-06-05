@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listas</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+  <main class="listasContenedor">
+    <h1 class="listasTitulo">Mis Listas</h1>
+    <ul class="listasMenu">
+      <li><a th:href="@{/listas/quiero-leer}">Quiero leer</a></li>
+      <li><a th:href="@{/listas/leyendo}">Leyendo</a></li>
+      <li><a th:href="@{/listas/leido}">Leído</a></li>
+      <li><a th:href="@{/listas/favoritos}">Favoritos</a></li>
+    </ul>
+  </main>
+  <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+</html>

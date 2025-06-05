@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eliminar Perfil</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+  <main class="perfilContenedor">
+    <h1 class="perfilTitulo">¿Estás seguro de que quieres eliminar tu cuenta?</h1>
+
+    <form th:action="@{/perfil/borrar}" method="post">
+      <button type="submit" class="perfilBoton" style="background-color: #701e26;">Sí, eliminar cuenta</button>
+      <a th:href="@{/perfil}" class="perfilLink">Cancelar</a>
+    </form>
+  </main>
+  <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+
+</html>

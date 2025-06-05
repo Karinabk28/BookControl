@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Usuario</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <header th:replace="~{/fragments/navFragment.html::cabecera}"></header>
+
+    <main class="admin-panel">
+        <h1 class="admin-titulo">Añadir Nuevo Usuario</h1>
+        <p class="admin-mensaje-info" th:if="${msg != null}" th:text="${msg}">mensaje</p>
+        <form class="admin-formulario" th:action="@{/admin/usuarios/nuevo/submit}" th:object="${usuarioForm}"
+            method="post">
+
+            <div class="form-grupo">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required />
+            </div>
+
+            <div class="form-grupo">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" required />
+            </div>
+
+            <div class="form-grupo">
+                <label for="clave">Contraseña:</label>
+                <input type="password" id="clave" th:field="*{clave}" required />
+            </div>
+
+            <div class="form-grupo">
+                <label for="rol">Rol:</label>
+                <select id="rol" th:field="*{rol}">
+                    <option value="ADMIN">Admin</option>
+                    <option value="USUARIO">Usuario</option>
+                </select>
+            </div>
+
+            <button class="admin-boton" type="submit">Guardar</button>
+        </form>
+
+        <div class="admin-boton-nuevo" style="margin-top: 1rem;">
+            <a class="admin-enlace" href="/admin/usuarios">Volver</a>
+        </div>
+    </main>
+    <footer th:replace="~{/fragments/footerFragment.html::pie}"></footer>
+</body>
+
+</html>
