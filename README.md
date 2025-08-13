@@ -1,2 +1,2 @@
 # ProyectoFinalKarina
-Proyecto Final DAW
+He desarrollado mi proyecto final de DAW: Book Control, una aplicación que permite buscar libros, filtrarlos, leer reseñas de otros usuarios y dejar las tuyas propias. Además, podrás leer los libros de forma gratuita. Para acceder a la aplicación, es necesario registrarse o iniciar sesión, lo que te da acceso completo a todas las funcionalidades. Existe un rol de administrador que se encarga de gestionar el contenido, y toda la información,
